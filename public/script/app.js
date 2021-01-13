@@ -2,6 +2,8 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -22,7 +24,7 @@ var IndecisionApp = function (_React$Component) {
         _this.handleAddOption = _this.handleAddOption.bind(_this);
 
         _this.state = {
-            optionComponents: props.optionComponents
+            options: props.options
         };
         return _this;
     }
@@ -33,14 +35,14 @@ var IndecisionApp = function (_React$Component) {
             var json = localStorage.getItem('options');
             var options = JSON.parse(json);
             this.setState(function () {
-                return { optionComponents: options };
+                return { options: options };
             });
         }
     }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps, prevState) {
-            if (prevState.optionComponents.length !== this.state.optionComponents.length) {
-                var json = JSON.stringify(this.state.optionComponents);
+            if (prevState.options.length !== this.state.options.length) {
+                var json = JSON.stringify(this.state.options);
                 localStorage.setItem('options', json);
             }
         }
@@ -53,7 +55,7 @@ var IndecisionApp = function (_React$Component) {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
             this.setState(function () {
-                return { optionComponents: [] };
+                return { options: [] };
             });
         }
     }, {
@@ -61,7 +63,7 @@ var IndecisionApp = function (_React$Component) {
         value: function handleDeleteOption(optionToRemove) {
             this.setState(function (prevState) {
                 return {
-                    optionComponents: prevState.optionComponents.filter(function (option) {
+                    options: prevState.options.filter(function (option) {
                         return optionToRemove !== option;
                     })
                 };
@@ -70,8 +72,8 @@ var IndecisionApp = function (_React$Component) {
     }, {
         key: 'handlePick',
         value: function handlePick() {
-            var randomNum = Math.floor(Math.random() * this.state.optionComponents.length);
-            var option = this.state.optionComponents[randomNum];
+            var randomNum = Math.floor(Math.random() * this.state.options.length);
+            var option = this.state.options[randomNum];
             alert(option);
         }
     }, {
@@ -80,16 +82,18 @@ var IndecisionApp = function (_React$Component) {
 
             if (!option) {
                 return 'Value must be valid!';
-            } else if (this.state.optionComponents.indexOf(option) > -1) {
+            } else if (this.state.options.indexOf(option) > -1) {
                 return 'This option already exist';
             }
             this.setState(function (prevState) {
-                return { optionComponents: prevState.optionComponents.concat(option) };
+                return { options: prevState.options.concat(option) };
             });
         }
     }, {
         key: 'render',
         value: function render() {
+            var _React$createElement;
+
             var title = 'Indecision App';
             var subtitle = 'Put your life in the hands of a computer';
             var options = 'Here goes your options:';
@@ -101,15 +105,12 @@ var IndecisionApp = function (_React$Component) {
                 , { subtitle: subtitle
                 }),
                 React.createElement(Action, {
-                    hasOptions: this.state.optionComponents.length > 0,
+                    hasOptions: this.state.options.length > 0,
                     handlePick: this.handlePick
                 }),
-                React.createElement(Options, {
-                    options: options,
-                    optionComponents: this.state.optionComponents,
-                    handleDeleteOptions: this.handleDeleteOptions,
-                    handleDeleteOption: this.handleDeleteOption
-                }),
+                React.createElement(Options, (_React$createElement = {
+                    options: options
+                }, _defineProperty(_React$createElement, 'options', this.state.options), _defineProperty(_React$createElement, 'handleDeleteOptions', this.handleDeleteOptions), _defineProperty(_React$createElement, 'handleDeleteOption', this.handleDeleteOption), _React$createElement)),
                 React.createElement(AddOption, {
                     handleAddOption: this.handleAddOption
                 })
@@ -121,7 +122,7 @@ var IndecisionApp = function (_React$Component) {
 }(React.Component);
 
 IndecisionApp.defaultProps = {
-    optionComponents: [] //['Fajita','Tomatoes soup','Frango na mostarda','Diet Coke chicken','Pulled pork','Roast chicken wrapped in bacon + potatoes']
+    options: [] //['Fajita','Tomatoes soup','Frango na mostarda','Diet Coke chicken','Pulled pork','Roast chicken wrapped in bacon + potatoes']
 
 
     // //*  Header using Stateless Function Component definition */
@@ -192,12 +193,12 @@ var Options = function Options(props) {
     return React.createElement(
         'div',
         null,
-        props.optionComponents.length > 0 && React.createElement(
+        props.options.length > 0 && React.createElement(
             'h3',
             null,
             props.options
         ),
-        props.optionComponents.map(function (option) {
+        props.options.map(function (option) {
             return React.createElement(Option, {
                 key: option,
                 optionText: option,
@@ -208,7 +209,7 @@ var Options = function Options(props) {
             'button',
             {
                 onClick: props.handleDeleteOptions,
-                disabled: !props.optionComponents.length > 0
+                disabled: !props.options.length > 0
             },
             'Remove All'
         )
@@ -221,7 +222,7 @@ var Options = function Options(props) {
 //             <div>
 //                 <button onClick={this.props.handleDeleteOptions}>Remove All </button>
 //                 {
-//                     this.props.optionComponents.map((option) => <Option key={option} optionText={option} />)
+//                     this.props.options.map((option) => <Option key={option} optionText={option} />)
 //                 }
 //             </div>
 //         )
