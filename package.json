@@ -7,5 +7,20 @@
   "dependencies": {
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1"
+  },
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nogueiralhsp/indecision-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nogueiralhsp/indecision-app/issues"
+  },
+  "homepage": "https://github.com/nogueiralhsp/indecision-app#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.12.11"
   }
 }
