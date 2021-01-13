@@ -7,19 +7,25 @@ class IndecisionApp extends React.Component {
         this.handleAddOption = this.handleAddOption.bind(this)
 
         this.state = {
-            options: props.options
+            options: []//props.options //uncoment this to use default values
         }
     }
 
     componentDidMount() {
-        const json = localStorage.getItem('options')
-        const options = JSON.parse(json)
-        this.setState(() => ({options}))
+        try {
+            const json = localStorage.getItem('options')
+            const options = JSON.parse(json)
+            if (options) {
+                this.setState(() => ({ options }))
+            }
+        } catch (e) {
+            // do nothing at all
+        }
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevState.options.length !== this.state.options.length) {
             const json = JSON.stringify(this.state.options)
-            localStorage.setItem('options',json)
+            localStorage.setItem('options', json)
         }
     }
     componentWillUnmount() {
@@ -79,9 +85,10 @@ class IndecisionApp extends React.Component {
         )
     }
 }
-IndecisionApp.defaultProps = {
-    options: []//['Fajita','Tomatoes soup','Frango na mostarda','Diet Coke chicken','Pulled pork','Roast chicken wrapped in bacon + potatoes']
-}
+// use this when working with default Props values
+// IndecisionApp.defaultProps = {
+//     options: []//['Fajita','Tomatoes soup','Frango na mostarda','Diet Coke chicken','Pulled pork','Roast chicken wrapped in bacon + potatoes']
+// }
 
 
 
@@ -143,7 +150,7 @@ const Action = (props) => {
 const Options = (props) => {
     return (
         <div>
-            {props.options.length > 0 && <h3>{props.options}</h3>}
+            {props.options.length === 0 && <h3>Please add an option to get started!</h3>}
             {
                 props.options.map((option) => (
                     <Option
@@ -225,8 +232,10 @@ class AddOption extends React.Component {
         this.setState(() => ({ error }))
 
         { this.props.error && <p>{this.props.error}</p> }
+        if (!error) {
+            e.target.elements.option.value = ''
+        }
 
-        e.target.elements.option.value = ''
     }
     render() {
         return (

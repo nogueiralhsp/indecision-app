@@ -1,30 +1,53 @@
 class Counter extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.handleAddOne=this.handleAddOne.bind(this)
-        this.handleMinusOne=this.handleMinusOne.bind(this)
-        this.handleReset=this.handleReset.bind(this)
+        this.handleAddOne = this.handleAddOne.bind(this)
+        this.handleMinusOne = this.handleMinusOne.bind(this)
+        this.handleReset = this.handleReset.bind(this)
         this.state = {
-            count: props.count
+            count: 0 //props.count //uncoment this when you want to work with default number
         }
     }
-    handleAddOne(){
+    componentDidMount() {
+        console.log(`componentDidMount ${localStorage.getItem('count')}`);
+        try {
+            const json = localStorage.getItem('count')
+            const count = parseInt(json, 10)
+            if (count) {
+                this.setState(() => ({ count }))
+            }
+        } catch (e) {
+            // do nothing at all
+        }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        const json = JSON.stringify(this.state.count)
+        localStorage.setItem('count', json)
+        console.log(`did update ${prevState.count !== this.state.count}`);
+    }
+
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
+    }
+
+    handleAddOne() {
         this.setState((prevState) => {
             return {
                 count: prevState.count + 1
             }
         })
     }
-    handleMinusOne(){
+    handleMinusOne() {
         this.setState((prevState) => {
             return {
                 count: prevState.count - 1
             }
         })
-    }handleReset(){
+    } handleReset() {
         this.setState(() => {
-            return{
-                count: this.props.count
+            localStorage.clear()
+            return {
+                count: 0 //this.props.count //uncoment this to use default values
             }
         })
     }
@@ -40,10 +63,10 @@ class Counter extends React.Component {
         )
     }
 }
-
-Counter.defaultProps = {
-    count : 0
-}
+// use this to set up default numbers
+// Counter.defaultProps = {
+//     count : 0
+// }
 
 ReactDOM.render(<Counter />, document.getElementById('app'))
 
