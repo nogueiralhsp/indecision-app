@@ -5,12 +5,18 @@
   "author": "Henrique Nogueira",
   "license": "MIT",
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1"
+    "babel-preset-react": "^6.24.1",
+    "live-server": "^1.2.1",
+    "webpack": "^5.14.0"
   },
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "live-server public",
+    "build": "webpack --watch",
+    "build-babel": "babel src/app.js --out-file=public/script/app.js --presets=env,react --watch"
   },
   "repository": {
     "type": "git",
@@ -21,6 +27,7 @@
   },
   "homepage": "https://github.com/nogueiralhsp/indecision-app#readme",
   "devDependencies": {
-    "@babel/preset-env": "^7.12.11"
+    "@babel/preset-env": "^7.12.11",
+    "webpack-cli": "^4.3.1"
   }
 }
