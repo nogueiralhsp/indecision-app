@@ -19,7 +19,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "live-server public",
-    "build": "webpack --watch",
+    "build": "NODE_ENV=development webpack --watch",
     "build-babel": "babel src/app.js --out-file=public/script/app.js --presets=env,react --watch"
   },
   "repository": {
