@@ -6,13 +6,13 @@
   "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
+    "babel-core": "^7.12.10",
+    "babel-preset-env": "^7.12.11",
+    "babel-preset-react": "^7.0.0",
     "live-server": "^1.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "validator": "^13.5.2",
-    "webpack": "^5.14.0"
+    "validator": "^13.5.2"
   },
   "description": "",
   "scripts": {
@@ -30,7 +30,11 @@
   },
   "homepage": "https://github.com/nogueiralhsp/indecision-app#readme",
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.15.0",
     "webpack-cli": "^4.3.1"
   }
 }
