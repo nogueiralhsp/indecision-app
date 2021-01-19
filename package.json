@@ -13,19 +13,18 @@
     "live-server": "^1.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "validator": "^13.5.2"
+    "react-modal": "^3.12.1",
+    "validator": "^13.5.2",
+    "webpack-dev-server": "^3.11.2"
   },
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "live-server public",
-    "build": "NODE_ENV=development webpack --watch",
-    "build-babel": "babel src/app.js --out-file=public/script/app.js --presets=env,react --watch"
+    "build": "webpack",
+    "dev-server": "webpack serve"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nogueiralhsp/indecision-app.git"
-  },
+  "repository": "git+https://github.com/nogueiralhsp/indecision-app.git",
   "bugs": {
     "url": "https://github.com/nogueiralhsp/indecision-app/issues"
   },
@@ -33,6 +32,7 @@
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
     "babel-loader": "^8.2.2",
     "webpack": "^5.15.0",
