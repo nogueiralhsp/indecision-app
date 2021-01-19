@@ -1,18 +1,16 @@
 import React from 'react'
 
 // //*  Action using Stateless Function Component definition */
-const Action = (props) => {
-    return (
-        <div>
-            <button
-                onClick={props.handlePick}
-                disabled={!props.hasOptions}
-            >
-                What should I do?
+const Action = (props) => (
+    <div>
+        <button
+            onClick={props.handlePick}
+            disabled={!props.hasOptions}
+        >
+            What should I do?
             </button>
-        </div>
-    )
-}
+    </div>
+)
 // //*  Action using normal Class State Component definition */
 // class Action extends React.Component {
 //     render() {

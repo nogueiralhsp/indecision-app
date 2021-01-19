@@ -1,28 +1,26 @@
 import React from 'react'
 import Option from './Option'
 //*  Options using Stateless Function Component definition */
-const Options = (props) => {
-    return (
-        <div>
-            {props.options.length === 0 && <h3>Please add an option to get started!</h3>}
-            {
-                props.options.map((option) => (
-                    <Option
-                        key={option}
-                        optionText={option}
-                        handleDeleteOption={props.handleDeleteOption}
-                    />
-                ))
-            }
-            <button
-                onClick={props.handleDeleteOptions}
-                disabled={!props.options.length > 0}
-            >
-                Remove All
+const Options = (props) => (
+    <div>
+        {props.options.length === 0 && <h3>Please add an option to get started!</h3>}
+        {
+            props.options.map((option) => (
+                <Option
+                    key={option}
+                    optionText={option}
+                    handleDeleteOption={props.handleDeleteOption}
+                />
+            ))
+        }
+        <button
+            onClick={props.handleDeleteOptions}
+            disabled={!props.options.length > 0}
+        >
+            Remove All
             </button>
-        </div>
-    )
-}
+    </div>
+)
 //*  Options using normal Class State Component definition */
 // class Options extends React.Component {
 //     render() {

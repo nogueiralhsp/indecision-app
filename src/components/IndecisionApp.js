@@ -3,15 +3,18 @@ import Header from './Header'
 import AddOption from './AddOption'
 import Options from './Options'
 import Action from './Action'
+import OptionModal from './OptionModal'
 
 class IndecisionApp extends React.Component {
     state = {
-        options: []
+        options: [],
+        selectedOption: undefined
     }
-
+    
     handleDeleteOptions = () => {
         this.setState(() => ({ options: [] }))
     }
+
     handleDeleteOption = (optionToRemove) => {
         this.setState((prevState) => ({
             options: prevState.options.filter((option) => {
@@ -20,22 +23,26 @@ class IndecisionApp extends React.Component {
         }))
     }
 
+    handleClearOption = () => {
+        this.setState(() => ({selectedOption:''}))  
+    }
     handlePick = () => {
         const randomNum = Math.floor(Math.random() * this.state.options.length)
         const option = this.state.options[randomNum]
-        alert(option)
+        //alert(option)
+        this.setState(() => ({ selectedOption: option }))
     }
 
-    handleAddOption = (option) => {
+    handleAddOption = (option) => { 
         if (!option) {
             return 'Value must be valid!'
-        } else if (this.state.options.indexOf(option) > -1) {
+        } else if (this.state.options.indexOf(option) > -1) {   
             return 'This option already exist'
         }
         this.setState((prevState) => ({ options: prevState.options.concat(option) }))
     }
 
-    componentDidMount () {
+    componentDidMount() {
         try {
             const json = localStorage.getItem('options')
             const options = JSON.parse(json)
@@ -46,7 +53,7 @@ class IndecisionApp extends React.Component {
             // do nothing at all
         }
     }
-    componentDidUpdate (prevProps, prevState) {
+    componentDidUpdate(prevProps, prevState) {
         if (prevState.options.length !== this.state.options.length) {
             const json = JSON.stringify(this.state.options)
             localStorage.setItem('options', json)
@@ -56,14 +63,13 @@ class IndecisionApp extends React.Component {
         console.log('componentWillUnmount');
     }
 
-render() {
+    render() {
         const title = 'Indecision App'
         const subtitle = 'Put your life in the hands of a computer'
         const options = 'Here goes your options:'
         return (
             <div>
                 <Header
-                    // title={title}
                     subtitle={subtitle}
                 />
                 <Action
@@ -78,6 +84,10 @@ render() {
                 />
                 <AddOption
                     handleAddOption={this.handleAddOption}
+                />
+                <OptionModal
+                    selectedOption={this.state.selectedOption}
+                    handleClearOption={this.handleClearOption}
                 />
             </div>
         )
