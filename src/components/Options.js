@@ -15,7 +15,7 @@ const Options = (props) => (
         </div>
         {props.options.length === 0 && <p
             className="widget__message"
-            >
+        >
             Please add an option to get started!
             </p>}
         {
@@ -23,7 +23,7 @@ const Options = (props) => (
                 <Option
                     key={option}
                     optionText={option}
-                    count={index+1}
+                    count={index + 1}
                     handleDeleteOption={props.handleDeleteOption}
                 />
             ))
